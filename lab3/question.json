@@ -17,7 +17,7 @@
         "answer" : 3
     },{
         "question" : "5",
-        "answers" : ["1","2","3","4"],
+        "answers" : ["2","2","3","4"],
         "answer" : 3
     },{
         "question" : "6",
@@ -25,11 +25,11 @@
         "answer" : 3
     },{
         "question" : "7",
-        "answers" : ["1","2","3","4"],
+        "answers" : ["5555","2","3","4"],
         "answer" : 3
     },{
         "question" : "8",
-        "answers" : ["1","2","3","4"],
+        "answers" : ["https://image.dek-d.com/contentimg/2017-2/ratt/content/meetstar/2/pic4.jpg","2","3","4"],
         "answer" : 3
     },{
         "question" : "9",
@@ -45,7 +45,7 @@
         "answer" : 3
     },{
         "question" : "12",
-        "answers" : ["1","2","3","4","5"],
+        "answers" : ["1","2","3","4","5","56"],
         "answer" : 3
     },{
         "question" : "13",

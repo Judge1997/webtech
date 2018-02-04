@@ -6,7 +6,7 @@
         <style>
             .ans,.question{
               display : flex;
-              border: 5px dashed #1f1f1f;
+              border: 5px solid #1f1f1f;
               background-color:lightyellow;
               margin:50px;
               padding: 10px;
@@ -29,7 +29,7 @@
               display : flex;
               flex-wrap : wrap;
               justify-content : center;
-              border: 5px dashed #1f1f1f;
+              border: 5px solid #1f1f1f;
               background-color:lightyellow;
               margin:50px;
               padding: 10px;
@@ -48,15 +48,16 @@
     <body>
       <div class="background" >
         <div class="game" >
+          <h1>Question Game</h1>
             <div id="question" class="question" style="width:90%">
               คุณต้องการคำถามกี่ข้อ ?
             </div>
 
             <div class="answers">
-              <div class="ans" onclick="ten()">
+              <div class="ans" value="10">
                 10 ข้อ
               </div>
-              <div class="ans" onclick="twenty()">
+              <div class="ans" value="20">
                 20 ข้อ
               </div>
             </div>
@@ -65,122 +66,181 @@
       </div>
         <script src="jquery-3.3.1.min.js" charset="utf-8"></script>
         <script type="text/javascript">
-            var number;
+          $(document).ready(function(){
+            console.log("Ready start");
+            var timeTotal
+            var timeTotalInterval
+            $.ajax({
+              url : "question.json",
+              method : "GET",
+              dataType : "json",
+              success : function(response){
+                console.log(response);
+                $(".ans").on({
+                  mouseenter: function(){
+                    $(this).css("background-color","yellow")
+                  },
+                  mouseleave: function(){
+                    $(this).css("background-color","lightyellow")
+                  },
+                  click: function(){
+                    start($(this).attr("value"))
+                  }
+                })
 
-            function ten(){
-              number = 10;
-              start()
-            }
-
-            function twenty(){
-              number = 20;
-              start()
-            }
-
-            function home(){
-              $(".game").html(`<div id="question" class="question" style="width:90%">
-                คุณต้องการคำถามกี่ข้อ ?
-              </div>
-
-              <div class="answers">
-                <div class="ans" onclick="ten()">
-                  10 ข้อ
-                </div>
-                <div class="ans" onclick="twenty()">
-                  20 ข้อ
-                </div>
-              </div>`)
-            }
-
-            var currentQuestion
-            var lstQuestion
-            var lstNumberOfQuestion
-            var score = 0
-            var timer
-            var time = 5
-            var decreaseTime = setInterval(decreaseTime, 1000);
-
-            function loop(currentQuestion,lstNumberOfQuestion,lstQuestion){
-              console.log(currentQuestion+1);
-              let useAns = []
-              let choice
-              let numberOfChoice = lstQuestion[lstNumberOfQuestion[currentQuestion]][`answers`].length
-              for (let i = 0 ; i < numberOfChoice ; i++){
-                choice = Math.floor(Math.random() * numberOfChoice)
-                while ($.inArray(choice, useAns) != -1){
-                  choice = Math.floor(Math.random() * numberOfChoice)
+                function start(numberOfQuestions){
+                  // console.log("Start game with "+numberOfQuestions+" questions");
+                  let lstQuestion = []
+                  randomSegment(lstQuestion, numberOfQuestions,response.length)
+                  console.log(lstQuestion);
+                  let score = 0
+                  let currentQuestion = 0
+                  timeTotal = 0
+                  timeTotalInterval = setInterval(function () {
+                      timeTotal++
+                      // console.log("Time total :",timeTotal);
+                  }, 1000);
+                  loop(currentQuestion,lstQuestion,score)
                 }
-                useAns.push(choice)
-              }
-              let answers = ``;
-              for (let va of useAns){
-                answers += `<div class="ans" onclick="checkAnswer(${va})">${lstQuestion[lstNumberOfQuestion[currentQuestion]][`answers`][`${va}`]}</div>`
-              }
 
-              time = 5
-              $(".game").html(`<div id="question" class="question" style="width:60%"></div>`+`<div id="time" class="question" style="width:5%">Time : ${time}</div>`+`<div class="question" style="width:5%">Score : ${score}</div>`+answers)
-              $("#question").text(`${currentQuestion+1}. ${lstQuestion[lstNumberOfQuestion[currentQuestion]]["question"]}`)
-            }
+                function randomSegment(lst,number,length){
+                  let useQuestion
+                  for (let i = 0 ; i < number ; i++){
+                    useQuestion = Math.floor(Math.random() * length)
+                    while ($.inArray(useQuestion, lst) != -1){
+                      useQuestion = Math.floor(Math.random() * length)
+                    }
+                    lst.push(useQuestion)
+                  }
+                }
 
-            function decreaseTime() {
-              time--
-              if (time == 0){
-                nextQuestion()
-              }
-              $("#time").text(`Time : ${time}`)
-            }
+                function isImg(str){
+                  let imgRex = new RegExp('.+\.[(png)(jpg)]')
+                  if (imgRex.test(str)){
+                    return true
+                  } else {
+                    return false
+                  }
+                }
 
-            function checkAnswer(choice){
-              if (choice == lstQuestion[lstNumberOfQuestion[currentQuestion]]["answer"]){
-                score++
-              }
-              nextQuestion()
-            }
+                function loop(currentQuestion,lstQuestion,score){
+                  if (currentQuestion > lstQuestion.length-1){
+                    // console.log("End game");
+                    clearInterval(timeTotalInterval)
+                    return resultScore(score,lstQuestion.length)
+                  }
+                  // console.log("currentQuestion :",currentQuestion+1);
 
-            function nextQuestion(){
-              currentQuestion++
-              if (currentQuestion < number){
-                loop(currentQuestion,lstNumberOfQuestion,lstQuestion)
-              } else {
-                console.log("end game");
-                score = 0
-                currentQuestion = 0
-                resultScore()
-              }
-            }
+                  let numberOfChoice = response[lstQuestion[currentQuestion]][`answers`].length
+                  let lstAns = []
+                  randomSegment(lstAns,response[lstQuestion[currentQuestion]][`answers`].length,response[lstQuestion[currentQuestion]][`answers`].length)
 
-            function resultScore(){
-              $(".game").html(`<div style="width:100%;">Score : ${score}</div>`+`<div class="question" style="width:10%;text-align: center;" onclick="home()">Restart</div>`)
-            }
+                  let answers = ``;
 
-            function start(){
-              $(document).ready(function(){
-                  console.log("start",number);
-                  $.ajax({
-                      url : "question.json",
-                      method : "GET",
-                      dataType : "json",
-                      success : function(response){
-                        var useQuestion = []
-                        var no;
-                        console.log(response);
-                        for (let i = 0 ; i < number ; i++){
-                          no = Math.floor(Math.random() * 20)
-                          while ($.inArray(no, useQuestion) != -1){
-                            no = Math.floor(Math.random() * 20)
-                          }
-                          useQuestion.push(no)
-                        }
-                        console.log("end");
+                  for (let i = 0 ; i < lstAns.length ; i++){
+                    console.log(response);
+                    console.log(`${response[lstQuestion[currentQuestion]]["question"]}`,`${response[lstQuestion[currentQuestion]]["answers"][0]}`);
+                    if (isImg(`${lstAns,response[lstQuestion[currentQuestion]][`answers`][`${lstAns[`${i}`]}`]}`)){
+                      answers += `<div class="ans" value="${lstAns[`${i}`]+1}">${i+1}. <img src="${response[lstQuestion[currentQuestion]][`answers`][`${lstAns[`${i}`]}`]}"></div>`
+                    } else {
+                      answers += `<div class="ans" value="${lstAns[`${i}`]+1}">${i+1}. ${response[lstQuestion[currentQuestion]][`answers`][`${lstAns[`${i}`]}`]}</div>`
+                    }
+                  }
 
-                        currentQuestion = 0
-                        lstQuestion = response
-                        lstNumberOfQuestion = useQuestion
-                        loop(currentQuestion,lstNumberOfQuestion,lstQuestion)
+                  let time = 10
+                  let timer
+
+                  $(".game").html(`<div id="question" class="question" style="width:60%"></div>`+`<div id="time" class="question" style="width:5%">Time : ${time}</div>`+`<div class="question" style="width:5%">Score : ${score}</div>`+answers)
+                  $("#question").text(`${currentQuestion+1}. ${response[lstQuestion[currentQuestion]]["question"]}`)
+
+                  $(".ans").on({
+                    mouseenter: function(){
+                      $(this).css("background-color","yellow")
+                    },
+                    mouseleave: function(){
+                      $(this).css("background-color","lightyellow")
+                    },
+                    click: function(){
+                      console.log($(this).attr("value"));
+                      clearInterval(timer)
+                      if ($(this).attr("value") == response[lstQuestion[currentQuestion]][`answer`]){
+                        score++
                       }
+                      loop(++currentQuestion,lstQuestion,score)
+                    }
                   })
-              })
+
+                  // console.log("start time");
+
+                  startTime(time)
+
+                  function startTime(time){
+                    timer = setInterval(decreaseTime, 1000);
+
+                    function decreaseTime(){
+                      time--
+                      $("#time").text(`Time : ${time}`)
+                      if (time == 0){
+                        // console.log("Next question");
+                        clearInterval(timer)
+                        loop(++currentQuestion,lstQuestion,score)
+                      }
+
+                    }
+                  }
+
+                }
+
+                function resultScore(score,numberOfQuestions){
+                  let timeTotalMinute = Math.floor(timeTotal/360)
+                  timeTotal -= timeTotalMinute*60
+                  let timeTotalSec = timeTotal
+                  let timeTotalStr = `${timeTotalMinute} minutes ${timeTotalSec} seconds`
+                  console.log(timeTotalStr);
+                  // let timeTotalStr = Strings.format("%d:%d:%d",timeTotalHr,timeTotalMinute,timeTotalSec)
+                  $(".game").html(`<div style="width:100%;"><h1>Score : ${score}/${numberOfQuestions}<br>Time Total : ${timeTotalStr}</h1></div>`+`<div class="ans" style="width:10%;text-align: center;" ">Restart</div>`)
+                  $(".ans").on({
+                    mouseenter: function(){
+                      $(this).css("background-color","yellow")
+                    },
+                    mouseleave: function(){
+                      $(this).css("background-color","lightyellow")
+                    },
+                    click: function(){
+                      home()
+                    }
+                  })
+                }
+
+                function home(){
+                  $(".game").html(`<h1>Question Game</h1>
+                    <div id="question" class="question" style="width:90%">
+                    คุณต้องการคำถามกี่ข้อ ?
+                  </div>
+
+                  <div class="answers">
+                    <div class="ans" value="10">
+                      10 ข้อ
+                    </div>
+                    <div class="ans" value="20">
+                      20 ข้อ
+                    </div>
+                  </div>`)
+                  $(".ans").on({
+                    mouseenter: function(){
+                      $(this).css("background-color","yellow")
+                    },
+                    mouseleave: function(){
+                      $(this).css("background-color","lightyellow")
+                    },
+                    click: function(){
+                      start($(this).attr("value"))
+                    }
+                  })
+                }
             }
-        </script>
+          })
+         })
+      </script>
     </body>
 </html>
