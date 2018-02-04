@@ -1,143 +1,83 @@
 [
     {
         "question" : "1",
-        "ans1" : 1,
-        "ans2" : 2,
-        "ans3" : 3,
-        "ans4" : 4,
-        "answer" : "ans3"
+        "answers" : ["1","2","3","4"],
+        "answer" : 3
     },{
         "question" : "2",
-        "ans1" : 1,
-        "ans2" : 2,
-        "ans3" : 3,
-        "ans4" : 4,
-        "answer" : "ans3"
+        "answers" : ["1","2","3","4"],
+        "answer" : 3
     },{
         "question" : "3",
-        "ans1" : 1,
-        "ans2" : 2,
-        "ans3" : 3,
-        "ans4" : 4,
-        "answer" : "ans3"
+        "answers" : ["1","2","3","4"],
+        "answer" : 3
     },{
         "question" : "4",
-        "ans1" : 1,
-        "ans2" : 2,
-        "ans3" : 3,
-        "ans4" : 4,
-        "answer" : "ans3"
+        "answers" : ["1","2","3","4"],
+        "answer" : 3
     },{
         "question" : "5",
-        "ans1" : 1,
-        "ans2" : 2,
-        "ans3" : 3,
-        "ans4" : 4,
-        "answer" : "ans3"
+        "answers" : ["1","2","3","4"],
+        "answer" : 3
     },{
         "question" : "6",
-        "ans1" : 1,
-        "ans2" : 2,
-        "ans3" : 3,
-        "ans4" : 4,
-        "answer" : "ans3"
+        "answers" : ["1","2","3","4"],
+        "answer" : 3
     },{
         "question" : "7",
-        "ans1" : 1,
-        "ans2" : 2,
-        "ans3" : 3,
-        "ans4" : 4,
-        "answer" : "ans3"
+        "answers" : ["1","2","3","4"],
+        "answer" : 3
     },{
         "question" : "8",
-        "ans1" : 1,
-        "ans2" : 2,
-        "ans3" : 3,
-        "ans4" : 4,
-        "answer" : "ans3"
+        "answers" : ["1","2","3","4"],
+        "answer" : 3
     },{
         "question" : "9",
-        "ans1" : 1,
-        "ans2" : 2,
-        "ans3" : 3,
-        "ans4" : 4,
-        "answer" : "ans3"
+        "answers" : ["1","2","3","4"],
+        "answer" : 3
     },{
         "question" : "10",
-        "ans1" : 1,
-        "ans2" : 2,
-        "ans3" : 3,
-        "ans4" : 4,
-        "answer" : "ans3"
+        "answers" : ["1","2","3","4"],
+        "answer" : 3
     },{
         "question" : "11",
-        "ans1" : 1,
-        "ans2" : 2,
-        "ans3" : 3,
-        "ans4" : 4,
-        "answer" : "ans3"
+        "answers" : ["1","2","3","4"],
+        "answer" : 3
     },{
         "question" : "12",
-        "ans1" : 1,
-        "ans2" : 2,
-        "ans3" : 3,
-        "ans4" : 4,
-        "answer" : "ans3"
+        "answers" : ["1","2","3","4","5"],
+        "answer" : 3
     },{
         "question" : "13",
-        "ans1" : 1,
-        "ans2" : 2,
-        "ans3" : 3,
-        "ans4" : 4,
-        "answer" : "ans3"
+        "answers" : ["1","2","3","4"],
+        "answer" : 3
     },{
         "question" : "14",
-        "ans1" : 1,
-        "ans2" : 2,
-        "ans3" : 3,
-        "ans4" : 4,
-        "answer" : "ans3"
+        "answers" : ["1","2","3","4"],
+        "answer" : 3
     },{
         "question" : "15",
-        "ans1" : 1,
-        "ans2" : 2,
-        "ans3" : 3,
-        "ans4" : 4,
-        "answer" : "ans3"
+        "answers" : ["1","2","3","4"],
+        "answer" : 3
     },{
         "question" : "16",
-        "ans1" : 1,
-        "ans2" : 2,
-        "ans3" : 3,
-        "ans4" : 4,
-        "answer" : "ans3"
+        "answers" : ["1","2","3","4"],
+        "answer" : 3
     },{
         "question" : "17",
-        "ans1" : 1,
-        "ans2" : 2,
-        "ans3" : 3,
-        "ans4" : 4,
-        "answer" : "ans3"
+        "answers" : ["1","2","3","4"],
+        "answer" : 3
     },{
         "question" : "18",
-        "ans1" : 1,
-        "ans2" : 2,
-        "ans3" : 3,
-        "ans4" : 4,
-        "answer" : "ans3"
+        "answers" : ["1","2","3","4"],
+        "answer" : 3
     },{
         "question" : "19",
-        "ans1" : 1,
-        "ans2" : 2,
-        "ans3" : 3,
-        "ans4" : 4,
-        "answer" : "ans3"
+        "answers" : ["1","2","3","4"],
+        "answer" : 3
     },{
         "question" : "20",
-        "ans1" : 1,
-        "ans2" : 2,
-        "ans3" : 3,
-        "ans4" : 4,
-        "answer" : "ans3"
+        "answers" : ["1","2","3","4"],
+        "answer" : 3
     }
 ]

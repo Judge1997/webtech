@@ -2,32 +2,33 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>JQuery</title>
+        <title>Question game</title>
         <style>
             .ans,.question{
-                display : flex;
-                border: 5px dashed #1f1f1f;
-                background-color:lightyellow;
-                margin:50px;
-                padding: 10px;
-                width: 38%;
-                height: 10%;
+              display : flex;
+              border: 5px dashed #1f1f1f;
+              background-color:lightyellow;
+              margin:50px;
+              padding: 10px;
+              width: 38%;
+              height: 10%;
+              text-align: center;
             }
+
             .answers{
               display : flex;
               flex-direction : row;
               flex-wrap : wrap;
               justify-content : center;
-              text-align: center;
               background-color:lightyellow;
               width: 100%;
               height: 120%;
             }
+
             .game{
               display : flex;
               flex-wrap : wrap;
               justify-content : center;
-              text-align: center;
               border: 5px dashed #1f1f1f;
               background-color:lightyellow;
               margin:50px;
@@ -35,11 +36,13 @@
               width: 80%;
               height: 120%;
             }
+
             .background{
               display : flex;
               justify-content : center;
               text-align: center;
             }
+
         </style>
     </head>
     <body>
@@ -74,8 +77,19 @@
               start()
             }
 
-            function out(par){
-              console.log(par);
+            function home(){
+              $(".game").html(`<div id="question" class="question" style="width:90%">
+                คุณต้องการคำถามกี่ข้อ ?
+              </div>
+
+              <div class="answers">
+                <div class="ans" onclick="ten()">
+                  10 ข้อ
+                </div>
+                <div class="ans" onclick="twenty()">
+                  20 ข้อ
+                </div>
+              </div>`)
             }
 
             var currentQuestion
@@ -100,7 +114,6 @@
               }
               let answers = ``;
               for (let va of useAns){
-                // console.log(response[no][`answers`][`${va}`]);
                 answers += `<div class="ans" onclick="checkAnswer(${va})">${lstQuestion[lstNumberOfQuestion[currentQuestion]][`answers`][`${va}`]}</div>`
               }
 
@@ -111,7 +124,6 @@
 
             function decreaseTime() {
               time--
-              console.log(time);
               if (time == 0){
                 nextQuestion()
               }
@@ -126,37 +138,30 @@
             }
 
             function nextQuestion(){
-              // clearTimeout(timer);
-              // clearInterval(decreaseTime);
               currentQuestion++
               if (currentQuestion < number){
                 loop(currentQuestion,lstNumberOfQuestion,lstQuestion)
               } else {
                 console.log("end game");
-                clearInterval(decreaseTime);
+                score = 0
+                currentQuestion = 0
                 resultScore()
               }
             }
 
             function resultScore(){
-              $(".background").html(`<div>Score : ${score}</div>`)
+              $(".game").html(`<div style="width:100%;">Score : ${score}</div>`+`<div class="question" style="width:10%;text-align: center;" onclick="home()">Restart</div>`)
             }
 
             function start(){
               $(document).ready(function(){
                   console.log("start",number);
                   $.ajax({
-                      url : "test1.json",
+                      url : "question.json",
                       method : "GET",
                       dataType : "json",
                       success : function(response){
                         var useQuestion = []
-                          // var result = ""
-                          // for (let value of response){
-                          //     console.log(value)
-                          //     result += `<div class="ans">Name: ${value["name"]}<br>Age: ${value["age"]}<br>Address: ${value["address"]["city"]}<br>&nbsp&nbsp&nbsp&nbsp&nbsp1</div>`
-                          // }
-                          // $(".game").html(result)
                         var no;
                         console.log(response);
                         for (let i = 0 ; i < number ; i++){
@@ -172,28 +177,6 @@
                         lstQuestion = response
                         lstNumberOfQuestion = useQuestion
                         loop(currentQuestion,lstNumberOfQuestion,lstQuestion)
-                        // setTimeout(function(){
-                        //   let useAns = []
-                        //   let choice;
-                        //   let numberOfChoice = response[no][`answers`].length
-                        //   for (let i = 0 ; i < numberOfChoice ; i++){
-                        //     choice = Math.floor(Math.random() * numberOfChoice)
-                        //     while ($.inArray(choice, useAns) != -1){
-                        //       choice = Math.floor(Math.random() * numberOfChoice)
-                        //     }
-                        //     useAns.push(choice)
-                        //     console.log(choice);
-                        //     console.log(useAns);
-                        //   }
-                        //   let answers = ``;
-                        //   for (let va of useAns){
-                        //     // console.log(response[no][`answers`][`${va}`]);
-                        //     answers += `<div class="ans" onclick="out(${response[no][`answers`][`${va}`]})">${response[no][`answers`][`${va}`]}</div>`
-                        //   }
-                        //   console.log(answers);
-                        //   $(".answers").html(answers);
-                        //   $("#question").text(`${response[no]["question"]}`)
-                        // },0)
                       }
                   })
               })
