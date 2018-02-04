@@ -159,7 +159,10 @@
                     let pictureAndRefAndQuestion = `${response[lstQuestion[currentQuestion]]["question"]}`.split(" ")
                     let picture = pictureAndRefAndQuestion[0]
                     let Ref = pictureAndRefAndQuestion[1]
-                    let Quet = pictureAndRefAndQuestion[2]
+                    let Quet = ""
+                    for (let i = 2 ; i < pictureAndRefAndQuestion.length ; i++){
+                      Quet += pictureAndRefAndQuestion[i]+" "
+                    }
                     $("#question").html(`${currentQuestion+1}. <img height="500" width="350" src="${picture}">Ref:${Ref}<br> ${Quet}`)
                   } else {
                     $("#question").text(`${currentQuestion+1}. ${response[lstQuestion[currentQuestion]]["question"]}`)
