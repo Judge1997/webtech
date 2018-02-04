@@ -115,7 +115,7 @@
                 }
 
                 function isImg(str){
-                  let imgRex = new RegExp('.+\.[(png)(jpg)]')
+                  let imgRex = new RegExp('.+\.[(png)(jpg)] .+')
                   if (imgRex.test(str)){
                     return true
                   } else {
@@ -138,20 +138,33 @@
                   let answers = ``;
 
                   for (let i = 0 ; i < lstAns.length ; i++){
-                    console.log(response);
-                    console.log(`${response[lstQuestion[currentQuestion]]["question"]}`,`${response[lstQuestion[currentQuestion]]["answers"][0]}`);
                     if (isImg(`${lstAns,response[lstQuestion[currentQuestion]][`answers`][`${lstAns[`${i}`]}`]}`)){
-                      answers += `<div class="ans" value="${lstAns[`${i}`]+1}">${i+1}. <img src="${response[lstQuestion[currentQuestion]][`answers`][`${lstAns[`${i}`]}`]}"></div>`
+                      let pictureAndRef = `${response[lstQuestion[currentQuestion]][`answers`][`${lstAns[`${i}`]}`]}`.split(" ")
+                      let picture = pictureAndRef[0]
+                      let Ref = pictureAndRef[1]
+                      answers += `<div class="ans" value="${lstAns[`${i}`]+1}">${i+1}. <img height="200" width="300" src="${picture}">${Ref}</div>`
                     } else {
                       answers += `<div class="ans" value="${lstAns[`${i}`]+1}">${i+1}. ${response[lstQuestion[currentQuestion]][`answers`][`${lstAns[`${i}`]}`]}</div>`
                     }
                   }
 
-                  let time = 10
+                  let time = 50
+                  let timeBar = 100
                   let timer
 
-                  $(".game").html(`<div id="question" class="question" style="width:60%"></div>`+`<div id="time" class="question" style="width:5%">Time : ${time}</div>`+`<div class="question" style="width:5%">Score : ${score}</div>`+answers)
-                  $("#question").text(`${currentQuestion+1}. ${response[lstQuestion[currentQuestion]]["question"]}`)
+                  $(".game").html(`<div id="question" class="question" style="width:60%"></div>`+`<div id="time" class="question" style="width:5%">Time : ${time}</div>`+`<div class="question" style="width:5%">Score : ${score}</div>`+
+                  `<div id="timeBar" style="height:30px;width: 90%;background-color:#ff5252;"><div id="remainTimeBar" style="height:30px;width: 100%;background-color: green;"></div></div>`+answers)
+
+                  if (isImg(`${response[lstQuestion[currentQuestion]]["question"]}`)){
+                    let pictureAndRefAndQuestion = `${response[lstQuestion[currentQuestion]]["question"]}`.split(" ")
+                    let picture = pictureAndRefAndQuestion[0]
+                    let Ref = pictureAndRefAndQuestion[1]
+                    let Quet = pictureAndRefAndQuestion[2]
+                    $("#question").html(`${currentQuestion+1}. <img height="500" width="350" src="${picture}">Ref:${Ref}<br> ${Quet}`)
+                  } else {
+                    $("#question").text(`${currentQuestion+1}. ${response[lstQuestion[currentQuestion]]["question"]}`)
+                  }
+
 
                   $(".ans").on({
                     mouseenter: function(){
@@ -172,14 +185,14 @@
 
                   // console.log("start time");
 
-                  startTime(time)
+                  startTime(time,timeBar)
 
-                  function startTime(time){
+                  function startTime(time,timeBar){
                     timer = setInterval(decreaseTime, 1000);
 
                     function decreaseTime(){
-                      time--
-                      $("#time").text(`Time : ${time}`)
+                      $("#time").text(`Time : ${--time}`)
+                      $("#remainTimeBar").attr("style",`width: ${timeBar -= 2}%;background-color: green;height:30px;`)
                       if (time == 0){
                         // console.log("Next question");
                         clearInterval(timer)
@@ -192,7 +205,7 @@
                 }
 
                 function resultScore(score,numberOfQuestions){
-                  let timeTotalMinute = Math.floor(timeTotal/360)
+                  let timeTotalMinute = Math.floor(timeTotal/60)
                   timeTotal -= timeTotalMinute*60
                   let timeTotalSec = timeTotal
                   let timeTotalStr = `${timeTotalMinute} minutes ${timeTotalSec} seconds`
