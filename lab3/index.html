@@ -162,7 +162,7 @@
                       let pictureAndRef = `${response[lstQuestion[currentQuestion]][`answers`][`${lstAns[`${i}`]}`]}`.split(" ")
                       let picture = pictureAndRef[0]
                       let Ref = pictureAndRef[1]
-                      answers += `<div class="ans" value="${lstAns[`${i}`]+1}">${i+1}. <img height="200" width="300" src="${picture}">${Ref}</div>`
+                      answers += `<div class="ans" value="${lstAns[`${i}`]+1}">${i+1}. <img height="400" width="300" src="${picture}">${Ref}</div>`
                     } else {
                       answers += `<div class="ans" value="${lstAns[`${i}`]+1}">${i+1}. ${response[lstQuestion[currentQuestion]][`answers`][`${lstAns[`${i}`]}`]}</div>`
                     }
