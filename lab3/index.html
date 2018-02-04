@@ -162,7 +162,7 @@
                       let pictureAndRef = `${response[lstQuestion[currentQuestion]][`answers`][`${lstAns[`${i}`]}`]}`.split(" ")
                       let picture = pictureAndRef[0]
                       let Ref = pictureAndRef[1]
-                      answers += `<div class="ans" value="${lstAns[`${i}`]+1}">${i+1}. <img height="400" width="300" src="${picture}">${Ref}</div>`
+                      answers += `<div class="ans" value="${lstAns[`${i}`]+1}">${i+1}. <img height="400" width="300" src="${picture}">Ref.${Ref}</div>`
                     } else {
                       answers += `<div class="ans" value="${lstAns[`${i}`]+1}">${i+1}. ${response[lstQuestion[currentQuestion]][`answers`][`${lstAns[`${i}`]}`]}</div>`
                     }
@@ -183,7 +183,7 @@
                     for (let i = 2 ; i < pictureAndRefAndQuestion.length ; i++){
                       Quet += pictureAndRefAndQuestion[i]+" "
                     }
-                    $("#question").html(`${currentQuestion+1}. <img height="500" width="350" src="${picture}">Ref:${Ref}<br> ${Quet}`)
+                    $("#question").html(`${currentQuestion+1}. <img height="500" width="350" src="${picture}">Ref.${Ref}<br> ${Quet}`)
                   } else {
                     $("#question").text(`${currentQuestion+1}. ${response[lstQuestion[currentQuestion]]["question"]}`)
                   }
