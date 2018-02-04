@@ -7,16 +7,23 @@
             @import url('https://fonts.googleapis.com/css?family=Lobster');
             @import url('https://fonts.googleapis.com/css?family=Itim');
 
-            h1 {
-              font-size : 50px;
+            #name{
+              font-size : 60px;
               font-family: 'Lobster', cursive;
+              color: #1de9b6;
+            }
+
+            #scoreAndTime{
+              font-size : 40px;
+              font-family: 'Itim', cursive;
+              color: #4fc3f7;
             }
 
             .ans,.question{
               font-family: 'Itim', cursive;
               font-size : 20px;
               display : flex;
-              border: 5px solid #1f1f1f;
+              border: 5px solid #00e676;
               background-color:lightyellow;
               margin:50px;
               padding: 10px;
@@ -39,7 +46,10 @@
               display : flex;
               flex-wrap : wrap;
               justify-content : center;
-              border: 5px solid #1f1f1f;
+              /* border: 5px solid #1f1f1f; */
+              border-style: ridge;
+              border-color: #ff1744;
+              border-width: 25px;
               background-color:lightyellow;
               margin:50px;
               padding: 10px;
@@ -58,7 +68,7 @@
     <body>
       <div class="background" >
         <div class="game" >
-          <h1>Questions Game</h1>
+          <h1 id="name">Questions Game</h1>
             <div id="question" class="question" style="width:90%">
               คุณต้องการคำถามกี่ข้อ ?
             </div>
@@ -88,7 +98,7 @@
                 console.log(response);
                 $(".ans").on({
                   mouseenter: function(){
-                    $(this).css("background-color","yellow")
+                    $(this).css("background-color","#c6ff00")
                   },
                   mouseleave: function(){
                     $(this).css("background-color","lightyellow")
@@ -162,8 +172,8 @@
                   let timeBar = 100
                   let timer
 
-                  $(".game").html(`<div style="width:90%"><h1>Questions Game</h1></div>`+`<div id="question" class="question" style="width:40%"></div>`+`<div id="time" class="question" style="width:10%">Time : ${time}</div>`+`<div class="question" style="width:8%">Score : ${score}</div>`+
-                  `<div id="timeBar" style="height:30px;width: 90%;background-color:#ff5252;"><div id="remainTimeBar" style="height:30px;width: 100%;background-color: green;"></div></div>`+answers)
+                  $(".game").html(`<div style="width:90%"><h1 id="name">Questions Game</h1></div>`+`<div id="question" class="question" style="width:40%"></div>`+`<div id="time" class="question" style="width:10%">Time : ${time}</div>`+`<div class="question" style="width:8%">Score : ${score}</div>`+
+                  `<div id="timeBar" style="height:30px;width: 90%;background-color:#ff5252;"><div id="remainTimeBar" style="height:30px;width: 100%;background-color: #76ff03;"></div></div>`+answers)
 
                   if (isImg(`${response[lstQuestion[currentQuestion]]["question"]}`)){
                     let pictureAndRefAndQuestion = `${response[lstQuestion[currentQuestion]]["question"]}`.split(" ")
@@ -181,7 +191,7 @@
 
                   $(".ans").on({
                     mouseenter: function(){
-                      $(this).css("background-color","yellow")
+                      $(this).css("background-color","#c6ff00")
                     },
                     mouseleave: function(){
                       $(this).css("background-color","lightyellow")
@@ -205,7 +215,7 @@
 
                     function decreaseTime(){
                       $("#time").text(`Time : ${--time}`)
-                      $("#remainTimeBar").attr("style",`width: ${timeBar -= 2}%;background-color: green;height:30px;`)
+                      $("#remainTimeBar").attr("style",`width: ${timeBar -= 2}%;background-color: #76ff03;height:30px;`)
                       if (time == 0){
                         // console.log("Next question");
                         clearInterval(timer)
@@ -224,10 +234,10 @@
                   let timeTotalStr = `${timeTotalMinute} minutes ${timeTotalSec} seconds`
                   console.log(timeTotalStr);
                   // let timeTotalStr = Strings.format("%d:%d:%d",timeTotalHr,timeTotalMinute,timeTotalSec)
-                  $(".game").html(`<div style="width:100%;"><h1>Score : ${score}/${numberOfQuestions}<br>Time Total : ${timeTotalStr}</h1></div>`+`<div class="ans" style="width:10%;text-align: center;" ">Restart</div>`)
+                  $(".game").html(`<div id="scoreAndTime" style="width:100%;"><h1>Score : ${score}/${numberOfQuestions}<br>Time Total : ${timeTotalStr}</h1></div>`+`<div class="ans" style="width:10%;text-align: center;" ">Restart</div>`)
                   $(".ans").on({
                     mouseenter: function(){
-                      $(this).css("background-color","yellow")
+                      $(this).css("background-color","#c6ff00")
                     },
                     mouseleave: function(){
                       $(this).css("background-color","lightyellow")
@@ -239,7 +249,7 @@
                 }
 
                 function home(){
-                  $(".game").html(`<h1>Questions Game</h1>
+                  $(".game").html(`<h1 id="name">Questions Game</h1>
                     <div id="question" class="question" style="width:90%">
                     คุณต้องการคำถามกี่ข้อ ?
                   </div>
@@ -254,7 +264,7 @@
                   </div>`)
                   $(".ans").on({
                     mouseenter: function(){
-                      $(this).css("background-color","yellow")
+                      $(this).css("background-color","#c6ff00")
                     },
                     mouseleave: function(){
                       $(this).css("background-color","lightyellow")
