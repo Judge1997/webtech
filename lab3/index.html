@@ -4,7 +4,17 @@
         <meta charset="utf-8">
         <title>Questions game</title>
         <style>
+            @import url('https://fonts.googleapis.com/css?family=Lobster');
+            @import url('https://fonts.googleapis.com/css?family=Itim');
+
+            h1 {
+              font-size : 50px;
+              font-family: 'Lobster', cursive;
+            }
+
             .ans,.question{
+              font-family: 'Itim', cursive;
+              font-size : 20px;
               display : flex;
               border: 5px solid #1f1f1f;
               background-color:lightyellow;
@@ -152,7 +162,7 @@
                   let timeBar = 100
                   let timer
 
-                  $(".game").html(`<div id="question" class="question" style="width:60%"></div>`+`<div id="time" class="question" style="width:5%">Time : ${time}</div>`+`<div class="question" style="width:5%">Score : ${score}</div>`+
+                  $(".game").html(`<div style="width:90%"><h1>Questions Game</h1></div>`+`<div id="question" class="question" style="width:40%"></div>`+`<div id="time" class="question" style="width:10%">Time : ${time}</div>`+`<div class="question" style="width:5%">Score : ${score}</div>`+
                   `<div id="timeBar" style="height:30px;width: 90%;background-color:#ff5252;"><div id="remainTimeBar" style="height:30px;width: 100%;background-color: green;"></div></div>`+answers)
 
                   if (isImg(`${response[lstQuestion[currentQuestion]]["question"]}`)){
